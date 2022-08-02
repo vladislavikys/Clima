@@ -9,11 +9,14 @@
 import UIKit
 
 class WeatherViewController: UIViewController, UITextFieldDelegate {
+ //https://api.openweathermap.org/data/2.5/weather?appid=deb08e43d6e7cc60e64c3c4f38b4abbb&units=metric
 
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var searchTextFiled: UITextField!
+    
+    var weatherManager = WeatherManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,14 +27,33 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     @IBAction func searchPreseed(_ sender: Any) {
        searchTextFiled.endEditing(true)
        print(searchTextFiled.text!)
-        // печатем введенны город и удаляем его из TF
+       
+        
     }
    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchTextFiled.endEditing(true)
-        print(searchTextFiled.text!)
+//        print(searchTextFiled.text!)
         return true
-        // печатем введенны город и удаляем его из TF
+        // печатем введенны город
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.text != ""{
+            return true
+        }else{
+            textField.placeholder = "Type something"
+            return false
+        }
+    }
+    
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField){
+        if let city = searchTextFiled.text {
+            weatherManager.fetchWeather(cityName: city)
+        }
+        
     }
 }
 
