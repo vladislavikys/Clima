@@ -33,7 +33,6 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchTextFiled.endEditing(true)
-//        print(searchTextFiled.text!)
         return true
         // печатем введенны город
     }
